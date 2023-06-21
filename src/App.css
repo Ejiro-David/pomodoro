@@ -1,0 +1,139 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #381d6a;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+  
+  #timeSetters {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  #break-label,
+  #session-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 30px;
+  }
+  
+  h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  h4.time-display {
+    font-size: 24px;
+  }
+  
+  .smallBtn {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .smallBtn button {
+    background-color: #8e6db5;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    margin: 0 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .smallBtn button:hover {
+    background-color: #5e3a8b;
+  }
+  
+  #timer-label {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  #time-left {
+    font-size: 48px;
+    margin-bottom: 30px;
+  }
+  
+  #mainBtn {
+    display: flex;
+    justify-content: center;
+  }
+  
+  #mainBtn button {
+    background-color: #8e6db5;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  #mainBtn button:hover {
+    background-color: #5e3a8b;
+  }
+  
+  @media screen and (max-width: 600px) {
+    h1 {
+      font-size: 24px;
+    }
+    
+    #timeSetters {
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    #break-label,
+    #session-label {
+      margin: 20px 0;
+    }
+    
+    h3 {
+      font-size: 18px;
+    }
+    
+    h4.time-display {
+      font-size: 20px;
+    }
+    
+    .smallBtn {
+      margin-top: 10px;
+    }
+    
+    .smallBtn button {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+    
+    #timer-label {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    
+    #time-left {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    
+    #mainBtn button {
+      padding: 10px 16px;
+      font-size: 14px;
+    }
+  }
+  
