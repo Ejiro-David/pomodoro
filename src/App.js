@@ -6,40 +6,26 @@ function App() {
     session: 25,
     break: 5,
   });
+  const [focus, setFocus] = useState(true)
 
-  const [display, setDisplay] = useState({ session: true });
+  const [displayTime, setDisplayTime] = useState(state.session)
 
+  if(state.session === 0){
+    setFocus(false)
+  }
 
   const handleDecr = (e) => {
-    let id = e.target.id;
-    if (id.includes("break")) {
-      setState({
-        session: state.session,
-        break: state.break - 1,
-      });
-    } else {
-      setState({
-        break: state.break,
-        session: state.session - 1,
-      });
-    }
+
+   
   };
 
   //count down, reset and pause/play fearture
   const handleIncr = (e) => {
-    let id = e.target.id;
-    console.log(id, state);
-    if (id.includes("break")) {
-      setState({
-        session: state.session,
-        break: state.break + 1,
-      });
-    } else {
-      setState({
-        break: state.break,
-        session: state.session + 1,
-      });
-    }
+    
+  };
+
+  const handlePlay = () => {
+
   };
 
   return (
@@ -49,27 +35,13 @@ function App() {
         <div id="break-label">
           <h3>Break Lenght</h3>
           <h4 className="time-display" id="break-length">
-            {state.break}
+            5
           </h4>
           <div className="smallBtn">
-            <button
-              id="break-increment"
-              onClick={
-                state.break <= 60
-                  ? handleIncr
-                  : setState({ session: state.session, break: 1 })
-              }
-            >
+            <button id="break-increment" onClick={handleIncr}>
               up
             </button>
-            <button
-              id="break-decrement"
-              onClick={
-                state.break > 0
-                  ? handleDecr
-                  : setState({ session: state.session, break: 60 })
-              }
-            >
+            <button id="break-decrement" onClick={handleDecr}>
               down
             </button>
           </div>
@@ -78,39 +50,26 @@ function App() {
         <div id="session-label">
           <h3>Session Lenght</h3>
           <h4 className="time-display" id="session-length">
-            {state.session}
+            25
           </h4>
           <div className="smallBtn">
-            <button
-              id="session-increment"
-              onClick={
-                state.session <= 60
-                  ? handleIncr
-                  : setState({ break: state.break, session: 1 })
-              }
-            >
+            <button id="session-increment" onClick={handleIncr}>
               up
             </button>
-            <button
-              id="session-decrement"
-              onClick={
-                state.session > 0
-                  ? handleDecr
-                  : setState({ break: state.break, session: 60 })
-              }
-            >
+            <button id="session-decrement" onClick={handleDecr}>
               down
             </button>
           </div>
         </div>
       </div>
 
-      <div>
-        <h3 id="timer-label">Session/Break</h3>
-        <h4 id="time-left">{display.session ? state.session : state.break}</h4>
-
+      <div id="timer-label">
+        <h3>Session/Break</h3>
+        <h4 id="time-left">{displayTime}</h4>
         <div id="mainBtn">
-          <button id="start_stop">pause/play</button>
+          <button id="start_stop" onClick={handlePlay}>
+            pause/play
+          </button>
           <button id="reset">reset</button>
         </div>
       </div>
