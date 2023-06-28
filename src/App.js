@@ -5,6 +5,7 @@ import TLenght from "./TLenght";
 function App() {
   const [breakTime, setBreakTime] = useState(5);
   const [sessionTime, setSessionTime] = useState(25);
+  const [inPlay, setInPlay] = useState(false);
 
   // const [focus, setFocus] = useState(true);
 
@@ -26,27 +27,30 @@ function App() {
     if (e.target.className.includes("up")) {
       if (e.target.id.includes("break") && breakTime < 60) {
         setBreakTime(breakTime + 1);
-      } else if (e.target.id.includes("session") ) {
+      } else if (e.target.id.includes("session")) {
         if (sessionTime < 60) {
           setSessionTime(sessionTime + 1);
-          setDisplayTime((sessionTime + 1) * 60)
+          setDisplayTime((sessionTime + 1) * 60);
         }
       }
     } else {
       if (e.target.id.includes("break") && breakTime > 0) {
         setBreakTime(breakTime - 1);
-      } else if(e.target.id.includes("session")) {
+      } else if (e.target.id.includes("session")) {
         if (sessionTime > 0) {
           setSessionTime(sessionTime - 1);
-          setDisplayTime((sessionTime - 1) * 60)
-        }else{
-
+          setDisplayTime((sessionTime - 1) * 60);
+        } else {
         }
       }
     }
-    // console.log(e.target)
   };
-  const handlePlay = () => {};
+  //handle the count down
+  const handlePlay = () => {
+   let countDown = displayTime
+   let then =  new Date().getSeconds() 
+   console.log()
+  };
 
   return (
     <div className="App">
@@ -64,7 +68,6 @@ function App() {
           handleTimeChange={handleTimeChange}
         />
       </div>
-
       <div id="timer-label">
         <h3>Session/Break</h3>
         <h4 id="time-left">{formatTime(displayTime)}</h4>
