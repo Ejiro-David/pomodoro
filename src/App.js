@@ -1,71 +1,73 @@
 import { useState } from "react";
 import "./App.css";
+import TLenght from "./TLenght";
 
 function App() {
-  const [state, setState] = useState({
-    session: 25,
-    break: 5,
-  });
-  const [focus, setFocus] = useState(true)
+  const [breakTime, setBreakTime] = useState(5);
+  const [sessionTime, setSessionTime] = useState(25);
 
-  const [displayTime, setDisplayTime] = useState(state.session)
+  // const [focus, setFocus] = useState(true);
 
-  if(state.session === 0){
-    setFocus(false)
-  }
+  const [displayTime, setDisplayTime] = useState(sessionTime * 60);
 
-  const handleDecr = (e) => {
-
-   
+  const formatTime = (time) => {
+    let min =
+      Math.floor(time / 60) < 10
+        ? "0" + Math.floor(time / 60)
+        : Math.floor(time / 60);
+    let sec = time % 60 === 0 ? "00" : time % 60;
+    return min + ":" + sec;
   };
 
-  //count down, reset and pause/play fearture
-  const handleIncr = (e) => {
-    
-  };
+  // handles increase and decrease of time untis on click
+  const handleTimeChange = (e) => {
+    console.log(e.target.className.includes("up"));
 
-  const handlePlay = () => {
+    if (e.target.className.includes("up")) {
+      if (e.target.id.includes("break") && breakTime < 60) {
+        setBreakTime(breakTime + 1);
+      } else if (e.target.id.includes("session") ) {
+        if (sessionTime < 60) {
+          setSessionTime(sessionTime + 1);
+          setDisplayTime((sessionTime + 1) * 60)
+        }
+      }
+    } else {
+      if (e.target.id.includes("break") && breakTime > 0) {
+        setBreakTime(breakTime - 1);
+      } else if(e.target.id.includes("session")) {
+        if (sessionTime > 0) {
+          setSessionTime(sessionTime - 1);
+          setDisplayTime((sessionTime - 1) * 60)
+        }else{
 
+        }
+      }
+    }
+    // console.log(e.target)
   };
+  const handlePlay = () => {};
 
   return (
     <div className="App">
       <h1>25 + 5 Timer</h1>
       <div id="timeSetters">
-        <div id="break-label">
-          <h3>Break Lenght</h3>
-          <h4 className="time-display" id="break-length">
-            5
-          </h4>
-          <div className="smallBtn">
-            <button id="break-increment" onClick={handleIncr}>
-              up
-            </button>
-            <button id="break-decrement" onClick={handleDecr}>
-              down
-            </button>
-          </div>
-        </div>
+        <TLenght
+          title={"break"}
+          time={breakTime}
+          handleTimeChange={handleTimeChange}
+        />
 
-        <div id="session-label">
-          <h3>Session Lenght</h3>
-          <h4 className="time-display" id="session-length">
-            25
-          </h4>
-          <div className="smallBtn">
-            <button id="session-increment" onClick={handleIncr}>
-              up
-            </button>
-            <button id="session-decrement" onClick={handleDecr}>
-              down
-            </button>
-          </div>
-        </div>
+        <TLenght
+          title={"session"}
+          time={sessionTime}
+          handleTimeChange={handleTimeChange}
+        />
       </div>
 
       <div id="timer-label">
         <h3>Session/Break</h3>
-        <h4 id="time-left">{displayTime}</h4>
+        <h4 id="time-left">{formatTime(displayTime)}</h4>
         <div id="mainBtn">
           <button id="start_stop" onClick={handlePlay}>
             pause/play
