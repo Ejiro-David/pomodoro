@@ -47,11 +47,35 @@ function App() {
   };
   //handle the count down
   const handlePlay = () => {
-   let countDown = displayTime
-   let then =  new Date().getSeconds() 
-   console.log()
+    setInPlay(true)
+    let date = new Date().getTime()/1000; 
+    let nextDate = (new Date().getTime()/1000 ) + 1
+    let inPlayValue = inPlay
+    
+
+    if(inPlayValue){
+
+      let interval = setInterval(() => {
+       date = new Date().getTime()/1000 ; 
+        if(date > nextDate){
+          setDisplayTime((prev) => {
+             return prev - 1
+          })
+          nextDate += 1
+        }
+      }, 30)
+    }
+
+    console.log(date, nextDate)
   };
 
+
+    const handleReset = () => {
+      setBreakTime(5)
+      setSessionTime(25)
+      setDisplayTime(25 * 60)
+      setInPlay(false)
+    }
   return (
     <div className="App">
       <h1>25 + 5 Timer</h1>
@@ -75,7 +99,7 @@ function App() {
           <button id="start_stop" onClick={handlePlay}>
             pause/play
           </button>
-          <button id="reset">reset</button>
+          <button id="reset" onClick={handleReset}>reset</button>
         </div>
       </div>
     </div>
