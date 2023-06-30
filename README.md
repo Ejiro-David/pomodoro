@@ -4,6 +4,8 @@ TODO
 -implement pause ✅
 -why is intervalId returning num?
 -play button when pressed for the first time enteres pause by default
+-switch to break time when session expires
+
 
 
 
@@ -18,7 +20,7 @@ TODO
 
 1. When I click the element with the id of "reset", any running timer should be stopped, the value within id="break-length" should return to 5, the value within id="session-length" should return to 25, and the element with id="time-left" should reset to it's default state.
 
-6. I should not be able to set a session or break length to <= 0.
+6. I should not be able to set a session or break length to <= 0.✅
 
 9. If the timer is running, the element with the id of "time-left" should display the remaining time in mm:ss format (decrementing by a value of 1 and updating the display every 1000ms).
 
@@ -34,4 +36,38 @@ TODO
 
 15. When a break countdown reaches zero (NOTE: timer MUST reach 00:00), a new session countdown should begin, counting down from the value currently displayed in the id="session-length" element.
 Timer has not reached 00:00.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      if (displayTime > 0) {
+       
+      } else if (displayTime <= 0) {
+       
+        // setOnBreak(true)
+        // setIntervalId(() => {
+        //   return setInterval(() => {
+        //     setDisplayTime((prev) => {
+        //       return prev - 1;
+        //     });
+        //     console.log("still in play...");
+        //   }, 1000);
+        // });
+      }
 

@@ -6,7 +6,7 @@ function App() {
   const [breakTime, setBreakTime] = useState(5);
   const [sessionTime, setSessionTime] = useState(25);
   const [inPlay, setInPlay] = useState(false);
-  const [onBreak, setOnBreak] = useState(false)
+  const [onBreak, setOnBreak] = useState(false);
   const [intervalId, setIntervalId] = useState();
   const [displayTime, setDisplayTime] = useState(sessionTime * 60);
 
@@ -22,7 +22,7 @@ function App() {
 
   // handles increase and decrease of time untis on click
   const handleTimeChange = (e) => {
-    console.log(e.target.className.includes("up"));
+    // console.log(e.target.className.includes("up"));
 
     if (e.target.className.includes("up")) {
       if (e.target.id.includes("break") && breakTime < 60) {
@@ -34,10 +34,10 @@ function App() {
         }
       }
     } else {
-      if (e.target.id.includes("break") && breakTime >= 1) {
+      if (e.target.id.includes("break") && breakTime > 1) {
         setBreakTime(breakTime - 1);
       } else if (e.target.id.includes("session")) {
-        if (sessionTime >= 1) {
+        if (sessionTime > 1) {
           setSessionTime(sessionTime - 1);
           setDisplayTime((sessionTime - 1) * 60);
         } else {
@@ -45,11 +45,14 @@ function App() {
       }
     }
   };
-  //handle the count down
 
-  //why does the count spped up when play is pressed twice
+
+  // rewrite handlePlay to switch to break when session count reaches 00:00
   const handlePlay = () => {
-    if (inPlay ) {
+    console.log(displayTime);
+    if (inPlay && !onBreak) {
+      console.log("still some work time left");
+      setOnBreak(false);
       setIntervalId(() => {
         return setInterval(() => {
           setDisplayTime((prev) => {
@@ -59,6 +62,13 @@ function App() {
         }, 1000);
       });
       console.log("in play is: ", inPlay);
+      if(displayTime <= 0){
+        onBreak(true)
+      }
+    } else if (inPlay && onBreak) {
+      clearInterval(intervalId);
+      setDisplayTime(breakTime);
+      console.log("work time elapsed, break started");
     } else {
       clearInterval(intervalId);
       setDisplayTime(displayTime);
