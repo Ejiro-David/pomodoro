@@ -6,7 +6,8 @@ function App() {
   const [breakTime, setBreakTime] = useState(5);
   const [sessionTime, setSessionTime] = useState(25);
   const [inPlay, setInPlay] = useState(false);
-  const [intervalId, setIntervalId] = useState()
+  const [onBreak, setOnBreak] = useState(false)
+  const [intervalId, setIntervalId] = useState();
   const [displayTime, setDisplayTime] = useState(sessionTime * 60);
 
   const formatTime = (time) => {
@@ -33,10 +34,10 @@ function App() {
         }
       }
     } else {
-      if (e.target.id.includes("break") && breakTime > 0) {
+      if (e.target.id.includes("break") && breakTime >= 1) {
         setBreakTime(breakTime - 1);
       } else if (e.target.id.includes("session")) {
-        if (sessionTime > 0) {
+        if (sessionTime >= 1) {
           setSessionTime(sessionTime - 1);
           setDisplayTime((sessionTime - 1) * 60);
         } else {
@@ -48,25 +49,28 @@ function App() {
 
   //why does the count spped up when play is pressed twice
   const handlePlay = () => {
-    if (inPlay && !intervalId) {
-      setIntervalId(() => {setInterval(() => {
-        setDisplayTime((prev) => {
-          return prev - 1;
-        });
-        console.log("still in play...");
-      }, 1000);}) 
-      console.log("in play is true");
+    if (inPlay ) {
+      setIntervalId(() => {
+        return setInterval(() => {
+          setDisplayTime((prev) => {
+            return prev - 1;
+          });
+          console.log("still in play...");
+        }, 1000);
+      });
+      console.log("in play is: ", inPlay);
     } else {
       clearInterval(intervalId);
-      setIntervalId()
       setDisplayTime(displayTime);
       console.log("interval cleared?", intervalId);
+      console.log("in play is: ", inPlay);
     }
   };
 
   const handleReset = () => {
-    clearInterval(intervalId);
     setInPlay(false);
+    setIntervalId();
+    clearInterval(intervalId);
     setBreakTime(5);
     setSessionTime(25);
     setDisplayTime(25 * 60);

@@ -4,7 +4,7 @@ function TLenght({title, time, handleTimeChange }) {
   return (
     <div id={title+'-label'}>
       <h3>{title} Length</h3>
-      <h4 className="time-display" id="break-length">
+      <h4 className="time-display" id={title+"-length"}>
         {time}
       </h4>
       <div className="smallBtn">
