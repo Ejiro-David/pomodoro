@@ -37,36 +37,3 @@ TODO
 Timer has not reached 00:00.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      if (displayTime > 0) {
-       
-      } else if (displayTime <= 0) {
-       
-        // setOnBreak(true)
-        // setIntervalId(() => {
-        //   return setInterval(() => {
-        //     setDisplayTime((prev) => {
-        //       return prev - 1;
-        //     });
-        //     console.log("still in play...");
-        //   }, 1000);
-        // });
-      }
-
