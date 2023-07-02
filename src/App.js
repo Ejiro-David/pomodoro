@@ -40,18 +40,39 @@ function App() {
   };
 
   const handleReset = () => {
-    setBreakTime(5)
-    setSessionTime(25)
-    setIsBreak(false)
-    setTimerId(null)
-    setDisplayTime(sessionTime * 60)
-    setIsRunning(false)
+    clearInterval(timerId);
+    setBreakTime(5);
+    setSessionTime(25);
+    setIsBreak(false);
+    setTimerId(null);
+    setDisplayTime(sessionTime * 60);
+    setIsRunning(false);
   };
 
   const handlePlay = () => {
-    setIsRunning(prev => !prev)
-    if(isRunning){
-      
+    if(!isRunning){
+      setIsRunning(prev => {
+        return !prev
+      })
+      console.log('runing')
+      setTimerId(() => {
+        setDisplayTime((prevTime) => {
+          if (prevTime <= 0) {
+            clearInterval(timerId);
+            setIsBreak((prevBreak) => !prevBreak);
+            return isBreak ? sessionTime * 60 : breakTime * 60;
+          } else {
+            return prevTime - 1;
+          }
+        });
+      }, 1000)
+    }else if(isRunning){
+      setIsRunning(prev => {
+        return !prev
+      })
+      console.log('paused')
+      // clearInterval(timerId);
+      // setTimerId(null);
     }
   };
 
