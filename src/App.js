@@ -23,6 +23,7 @@ function App() {
     setDisplayTime(isBreak ? breakTime * 60 : sessionTime * 60);
   }, [sessionTime, breakTime, isBreak]);
 
+  
   const handleTimeChange = (e) => {
     setIsRunning(false);
     console.log("stopped");
@@ -48,14 +49,13 @@ function App() {
   };
 
   const handleReset = () => {
-    console.log("stopped");
+    setIsRunning(false);
+    setIsBreak(false);
     clearInterval(timerId);
+    setTimerId(null);
     setBreakTime(5);
     setSessionTime(25);
-    setIsBreak(false);
-    setTimerId(null);
-    setDisplayTime(sessionTime * 60);
-    setIsRunning(false);
+    setDisplayTime(25 * 60);
   };
 
   const handlePlay = () => {
@@ -99,7 +99,7 @@ function App() {
         />
       </div>
       <div id="timer-label">
-        <h3>{isBreak ? "Break" : "Session"}</h3>
+        <h3 >{isBreak ? "Break" : "Session"}</h3>
         <h4 id="time-left">{formatTime(displayTime)}</h4>
         <div id="mainBtn">
           <button id="start_stop" onClick={handlePlay}>
