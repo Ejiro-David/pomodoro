@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import TLenght from "./TLenght";
+import sound from './beep.mp3'
 
 function App() {
   // Format time in MM:SS format
@@ -11,18 +12,24 @@ function App() {
       seconds < 10 ? "0" : ""
     }${seconds}`;
   };
-
+  const audioRef = useRef(null);
   const [breakTime, setBreakTime] = useState(5); // Initial break time
   const [sessionTime, setSessionTime] = useState(25); // Initial session time
   const [isRunning, setIsRunning] = useState(false); // Timer running status
   const [isBreak, setIsBreak] = useState(false); // Break status
   const [timerId, setTimerId] = useState(null); // Timer interval ID
   const [displayTime, setDisplayTime] = useState(sessionTime * 60); // Displayed time in seconds
+  const [playBeep, setPlayBeep] = useState(false)
 
   useEffect(() => {
     setDisplayTime(isBreak ? breakTime * 60 : sessionTime * 60);
   }, [sessionTime, breakTime, isBreak]);
-
+  
+  useEffect(() => {
+    if (playBeep) {
+      audioRef.current.play();
+    }
+  }, [playBeep]);
   
   const handleTimeChange = (e) => {
     setIsRunning(false);
@@ -49,6 +56,7 @@ function App() {
   };
 
   const handleReset = () => {
+    setPlayBeep(true)
     setIsRunning(false);
     setIsBreak(false);
     clearInterval(timerId);
@@ -68,6 +76,7 @@ function App() {
             if (prevTime <= 0) {
               clearInterval(timerId);
               setIsBreak((prevBreak) => !prevBreak);
+              setPlayBeep(true)
               return isBreak ? sessionTime * 60 : breakTime * 60;
             } else {
               return prevTime - 1;
@@ -108,6 +117,7 @@ function App() {
           <button id="reset" onClick={handleReset}>
             Reset
           </button>
+          <audio id='beep' play={setPlayBeep} ref={audioRef} src={sound} />
         </div>
       </div>
     </div>
